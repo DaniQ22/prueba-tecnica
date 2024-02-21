@@ -12,4 +12,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
+  closeSesion(){
+    localStorage.clear();
+    location.reload();
+
+  }
+
+
 }

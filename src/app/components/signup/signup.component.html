@@ -1,0 +1,40 @@
+<div class="signup-container">
+  <form [formGroup]="formSignUp">
+    <div class="tittle">
+      <h3>Registrarse</h3>
+      <span>¿Ya tiene una cuenta? <a (click)="closeSignUp()">Ingresa aqui</a></span>
+    </div>
+
+    <div class="box-info">
+      <input required="" class="input" formControlName="username" type="text" >
+      <label class="label">Nombre de usuario</label>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="box-info">
+          <input required="" class="input" formControlName="password" type="password" >
+          <label class="label">Contraseña</label>
+        </div>
+
+
+      </div>
+      <div class="col-6">
+        <div class="box-info">
+          <input required="" class="input" formControlName="confirmPassword" type="password" placeholder="">
+          <label class="label">Repetir contraseña</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-info">
+      <input required="" class="input" formControlName="email" type="email" placeholder="">
+      <label class="label">Correo electronico</label>
+    </div>
+
+    <div class="button">
+      <button (click)="signUpUser()">Registrarse</button>
+    </div>
+  </form>
+
+</div>

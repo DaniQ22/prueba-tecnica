@@ -20,7 +20,7 @@
       <tr>
         <th scope="col">Numero de placa</th>
         <th scope="col">Precio envio</th>
-        <th scope="col">Clinte</th>
+        <th scope="col">Cliente</th>
         <th scope="col">Cantidad envidad</th>
         <th scope="col">Descuento</th>
         <th scope="col">Precio total</th>
@@ -39,7 +39,7 @@
       <tr *ngFor="let ground of ListGroundShipping">
         <th scope="row">{{ground.licensePlate}}</th>
         <td>{{ground.price}}</td>
-        <td></td>
+        <td>{{ground.customer.name}} {{ground.customer.lastName}}</td>
         <td>{{ground.quantityProduct}}</td>
         <td>{{ground.discount}}</td>
         <td>{{ground.priceTotal}}</td>

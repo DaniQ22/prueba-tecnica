@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PenelComponent } from './components/penel/penel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ShippingFormComponent } from './components/shipping-form/shipping-form.
     SidebarComponent,
     LoginComponent,
     PenelComponent,
-    ShippingFormComponent
+    ShippingFormComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

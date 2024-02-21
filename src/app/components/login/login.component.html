@@ -1,6 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="!isLoginOrSignup">
   <form [formGroup]="formLogin" >
     <h3>Inicio de sesion</h3>
+    <span>¿No tienes una cuenta? <a (click)="signup()">Crea una aqui</a></span>
+
     <div class="row">
       <label for="" class="form-label">Nombre de usuario</label>
       <input formControlName="username" type="text" class="form-control">
@@ -14,3 +16,5 @@
     </div>
   </form>
 </div>
+
+<app-signup class="signUp" *ngIf="isLoginOrSignup" (emitterCloseFormSignup)="receibeEmit($event)"></app-signup>

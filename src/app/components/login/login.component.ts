@@ -14,6 +14,9 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   dataLogin!: any;
 
+  isLoginOrSignup: boolean = false;
+  isrecoverPassword: boolean = false;
+
   constructor(private service: LoginService,
     private formBulider: FormBuilder,
     private router: Router
@@ -24,6 +27,15 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  signup() {
+    this.isLoginOrSignup = !this.isLoginOrSignup;
+
+  }
+
+  receibeEmit(event: boolean) {
+    this.isLoginOrSignup = event;
   }
 
 
