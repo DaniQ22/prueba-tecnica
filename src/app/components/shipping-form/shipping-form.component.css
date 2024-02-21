@@ -1,0 +1,21 @@
+.container {
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
+}
+.shipping-ground , .shipping-maritime{
+    margin-top: 20px;
+    width: 100%;
+    border: 2px solid;
+    padding: 10px;
+}
+.info-shipping{
+    margin-top: 20px;
+}
+.row{
+    margin: 10px 0;
+}

@@ -1,0 +1,205 @@
+<div class="container">
+
+  <h2>Hola, aqui realizar un envio</h2>
+  <p>¿Que tipo de envio deseas realizar?</p>
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-primary" (click)="toggleShippingGround()">Terrestre</button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-primary" (click)="toggleShippingMaritime()">Maritimo</button>
+
+    </div>
+  </div>
+
+  <div class="shipping-ground" *ngIf="isShippingGround">
+    <h3>Envio Terrestre</h3>
+    <h3>Datos del cliente</h3>
+    <div class="info-customer">
+      <form [formGroup]="fomrCustomer">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el id del cliente</label>
+            <input formControlName="customerId" type="text" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el nombre del cliente</label>
+
+            <input formControlName="name" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el apellido</label>
+            <input formControlName="lastName" type="text" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el numero de telefono</label>
+
+            <input formControlName="phone" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese su direccion</label>
+            <input formControlName="addres" type="text" class="form-control">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="info-shipping">
+      <h3>Datos del envio</h3>
+      <form [formGroup]="formShippingGround">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge el producto a enviar</label>
+            <select class="form-select" (change)="onProductSelect($event)">
+              <option>Ecoga un producto</option>
+              <option *ngFor="let product of listProduct" [value]="product.productId">{{ product.name }}</option>
+            </select>
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese numero de placa del vehiculo</label>
+            <input formControlName="licensePlate" type="text" class="form-control" placeholder="ABC123">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge la bodega de entrega</label>
+            <select class="form-select" (change)="onWarehouseSelect($event)">
+              <option>Ecoga la bodega</option>
+              <option *ngFor="let warehouse of listWarehouse" [value]="warehouse.warehouseId">{{warehouse.name}}
+              </option>
+            </select>
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese el precio del envio</label>
+            <input formControlName="price" type="number" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge la fecha de entrega</label>
+            <input formControlName="dateDelivery" type="date" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese la cantidad a enviar</label>
+            <input formControlName="quantityProduct" type="number" class="form-control">
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="row">
+      <button (click)="sendShippingGround()" class="btn btn-primary">Realizar envio</button>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="shipping-maritime" *ngIf="isShippingMaritime">
+    <h3>Envio Maritimo</h3>
+    <h3>Datos del cliente</h3>
+    <div class="info-customer">
+      <form [formGroup]="fomrCustomer">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el id del cliente</label>
+            <input formControlName="customerId" type="text" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el nombre del cliente</label>
+
+            <input formControlName="name" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el apellido</label>
+            <input formControlName="lastName" type="text" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese el numero de telefono</label>
+
+            <input formControlName="phone" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Ingrese su direccion</label>
+            <input formControlName="addres" type="text" class="form-control">
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="info-shipping">
+      <h3>Datos del envio</h3>
+      <form  [formGroup]="formShippingMartime">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge el producto a enviar</label>
+            <select class="form-select" (change)="onProductSelect($event)">
+              <option>Ecoga un producto</option>
+              <option *ngFor="let product of listProduct" [value]="product.productId">{{ product.name }}</option>
+            </select>
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese numero de flota</label>
+            <input formControlName="fleetNumber" type="text" class="form-control" placeholder="ABC123">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge el puerto de entrega</label>
+            <select class="form-select" (change)="onPortSelected($event)">
+              <option>Ecoga la bodega</option>
+              <option *ngFor="let port of listPor" [value]="port.portId">{{port.name}}
+              </option>
+            </select>
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese el precio del envio</label>
+            <input formControlName="price" type="number" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <label for="" class="form-label">Escoge la fecha de entrega</label>
+            <input formControlName="dateDelivery" type="date" class="form-control">
+
+          </div>
+          <div class="col-6">
+            <label for="" class="form-label">Ingese la cantidad a enviar</label>
+            <input formControlName="quantityProduct" type="number" class="form-control">
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" (click)="sendShippingMaritime()">Realizar envio</button>
+    </div>
+
+
+
+  </div>
+
+</div>
