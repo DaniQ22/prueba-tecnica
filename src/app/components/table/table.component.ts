@@ -4,6 +4,8 @@ import { shippingground } from 'src/app/model/shippingGround';
 import { shippingMaritime } from 'src/app/model/shippingMaritime';
 import { GroundShippingService } from 'src/app/service/GroundShipping.service';
 import { MaritimeshippingService } from 'src/app/service/maritimeshipping.service';
+import { PortService } from 'src/app/service/port.service';
+import { WarehouseService } from 'src/app/service/warehouse.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +14,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
+
+  isUpdateShipping: boolean = false;
 
 
   isShippingGround: boolean = false;
@@ -24,12 +28,26 @@ export class TableComponent implements OnInit {
 
 
   constructor(private service: GroundShippingService,
-    private serviceMaritime: MaritimeshippingService) { }
+    private serviceMaritime: MaritimeshippingService, 
+    private servicePort: PortService,
+    private serviceWarehouse: WarehouseService) { }
 
   getAllGround() {
     this.service.getAll().subscribe(res => {
       if (res) {
         this.ListGroundShipping = res
+        const warehouseId = this.ListGroundShipping.map(shipping => shipping.deliveryWarehouse);
+
+        warehouseId.forEach(warehouseId => {
+          this.serviceWarehouse.getById(warehouseId).subscribe(warehouse => {
+            // Asignar los detalles del puerto correspondiente a cada envío
+            const shipping = this.ListGroundShipping.find(s => s.deliveryWarehouse === warehouseId);
+            if (shipping) {
+              shipping.warehouse = warehouse; // Asumiendo que shipping tiene una propiedad para los detalles del puerto
+            }
+          });
+        });
+
       }
     });
   }
@@ -37,7 +55,22 @@ export class TableComponent implements OnInit {
   getAllMaritie() {
     this.serviceMaritime.getAll().subscribe(res => {
       if (res) {
-        this.ListMaritimeShipping = res;
+        this.ListMaritimeShipping = res;      
+
+
+        // Mapear los IDs de los puertos de entrega
+        const portIds = this.ListMaritimeShipping.map(shipping => shipping.portDelivery);
+      
+        // Obtener los detalles de los puertos mediante sus IDs
+        portIds.forEach(portId => {
+          this.servicePort.getById(portId).subscribe(port => {
+            // Asignar los detalles del puerto correspondiente a cada envío
+            const shipping = this.ListMaritimeShipping.find(s => s.portDelivery === portId);
+            if (shipping) {
+              shipping.port = port; // Asumiendo que shipping tiene una propiedad para los detalles del puerto
+            }
+          });
+        });
         console.log(this.ListMaritimeShipping);
       }
     });
@@ -136,6 +169,10 @@ export class TableComponent implements OnInit {
         );
       }
     });
+  }
+
+  toggleUpdateSHippingGround(){
+    this.isUpdateShipping = !this.isUpdateShipping;
   }
 
 }

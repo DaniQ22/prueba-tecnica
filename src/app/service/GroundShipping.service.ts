@@ -30,4 +30,10 @@ constructor(private serviceUtil: UtilsService,
     )
 
   }
+
+  update(data: shippingground):Observable<shippingground>{
+    return this.http.post<shippingground>(this.serviceUtil.urlApi  + 'ground-shipping/save', data , {responseType: 'text' as 'json'}).pipe(
+      catchError(this.serviceUtil.HandleError)
+    )
+  }
 }

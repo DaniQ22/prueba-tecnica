@@ -15,4 +15,8 @@ export class WarehouseService {
     return this.http.get<any[]>(this.utilService.urlApi + 'warehouse/all')
   }
 
+  getById(warehouseId: number): Observable<any> {
+    return this.http.get<any>(this.utilService.urlApi + 'warehouse/getById/' + warehouseId)
+  }
+
 }

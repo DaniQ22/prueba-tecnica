@@ -8,11 +8,15 @@ import { UtilsService } from './utils.service';
 })
 export class PortService {
 
-constructor(private http: HttpClient,
-  private serviceUtil: UtilsService) { }
+  constructor(private http: HttpClient,
+    private serviceUtil: UtilsService) { }
 
 
-getAll():Observable<any[]>{
-  return this.http.get<any[]>(this.serviceUtil.urlApi + 'port/all')
-}
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.serviceUtil.urlApi + 'port/all')
+  }
+
+  getById(portId: number): Observable<any> {
+    return this.http.get<any>(this.serviceUtil.urlApi + 'port/getByid/' + portId)
+  }
 }

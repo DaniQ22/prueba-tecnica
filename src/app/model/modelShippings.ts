@@ -15,7 +15,14 @@ export interface ground {
         lastName: string,
         phone: string,
         addres: string
+    },
+    product: {
+        name: string
+    },
+    warehouse: {
+        name: string
     }
+  
 }
 
 
@@ -35,6 +42,13 @@ export interface Maritime {
         lastName: string,
         phone: string,
         addres: string
+    },
+    product: {
+        name: string
+    },
+
+    port: {
+        name: string
     }
 }
 

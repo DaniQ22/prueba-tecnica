@@ -1,94 +1,102 @@
-<div class="container">
-  <h2>Hola, aqui puedes mirar todos los envio</h2>
-  <p>¿Que tipo de envio deseas revisar?</p>
-  <div class="row">
-    <div class="col-6">
-      <button class="btn btn-primary" (click)="toggleShippingGround()">Terrestre</button>
-    </div>
-    <div class="col-6">
-      <button class="btn btn-primary" (click)="toggleShippingMaritime()">Maritimo</button>
+<div *ngIf="!isUpdateShipping">
 
+  <div class="container" >
+    <h2>Hola, aqui puedes mirar todos los envio</h2>
+    <p>¿Que tipo de envio deseas revisar?</p>
+    <div class="row">
+      <div class="col-6">
+        <button class="btn btn-primary" (click)="toggleShippingGround()">Terrestre</button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-primary" (click)="toggleShippingMaritime()">Maritimo</button>
+  
+      </div>
     </div>
+  
+  </div>
+  
+  <div class="shipping-ground" *ngIf="isShippingGround">
+    <h3>Envios terrestres</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Numero de placa</th>
+          <th scope="col">Precio envio</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Cantidad envidad</th>
+          <th scope="col">Descuento</th>
+          <th scope="col">Precio total</th>
+          <th scope="col">Producto</th>
+          <th scope="col">Bodega de entrega</th>
+          <th scope="col">Fecha de entrega</th>
+          <th scope="col">Numero Guia</th>
+  
+          <th scope="col">Acciones</th>
+  
+  
+  
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ground of ListGroundShipping">
+          <th scope="row">{{ground.licensePlate}}</th>
+          <td>{{ground.price}}</td>
+          <td>{{ground.customer.name}} {{ground.customer.lastName}}</td>
+          <td>{{ground.quantityProduct}}</td>
+          <td>{{ground.discount}}</td>
+          <td>{{ground.priceTotal}}</td>
+          <td>{{ground.product.name}}</td>
+          <td>{{ground.warehouse.name}}</td>
+          <td>{{ground.dateDelivery}}</td>
+          <td>{{ground.guideNumber}}</td>
+          <td><button (click)="deleteGround(ground.guideNumber)">Eliminar</button> | 
+            <button (click)="toggleUpdateSHippingGround()">editar</button><td>
+  
+  
+  
+        </tr>
+      </tbody>
+    </table>
+  
+  </div>
+  <div class="shipping-maritime" *ngIf="isShippingMaritime">
+    <h3>Envios maritimos</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Numero de placa</th>
+          <th scope="col">Precio envio</th>
+          <th scope="col">Clinte</th>
+          <th scope="col">Cantidad envidad</th>
+          <th scope="col">Descuento</th>
+          <th scope="col">Precio total</th>
+          <th scope="col">Producto</th>
+          <th scope="col">Bodega de entrega</th>
+          <th scope="col">Fecha de entrega</th>
+          <th scope="col">Numero Guia</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let maritimes of ListMaritimeShipping">
+          <th scope="row">{{maritimes.fleetNumber}}</th>
+          <td>{{maritimes.price}}</td>
+          <td></td>
+          <td>{{maritimes.quantityProduct}}</td>
+          <td>{{maritimes.discount}}</td>
+          <td>{{maritimes.priceTotal}}</td>
+          <td>{{maritimes.product.name}}</td>
+          <td>{{maritimes.port.name}}</td>
+          <td>{{maritimes.dateDelivery}}</td>
+          <td>{{maritimes.guideNumber}}</td>
+          <td><button (click)="deleteMaritime(maritimes.guideNumber)">Eliminar</button> | <button>editar</button><td>
+        </tr>
+      </tbody>
+    </table>
+  
   </div>
 
 </div>
 
-<div class="shipping-ground" *ngIf="isShippingGround">
-  <h3>Envios terrestres</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Numero de placa</th>
-        <th scope="col">Precio envio</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Cantidad envidad</th>
-        <th scope="col">Descuento</th>
-        <th scope="col">Precio total</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Bodega de entrega</th>
-        <th scope="col">Fecha de entrega</th>
-        <th scope="col">Numero Guia</th>
 
-        <th scope="col">Acciones</th>
-
-
-
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ground of ListGroundShipping">
-        <th scope="row">{{ground.licensePlate}}</th>
-        <td>{{ground.price}}</td>
-        <td>{{ground.customer.name}} {{ground.customer.lastName}}</td>
-        <td>{{ground.quantityProduct}}</td>
-        <td>{{ground.discount}}</td>
-        <td>{{ground.priceTotal}}</td>
-        <td>{{ground.typeProduct}}</td>
-        <td>{{ground.deliveryWarehouse}}</td>
-        <td>{{ground.dateDelivery}}</td>
-        <td>{{ground.guideNumber}}</td>
-        <td><button (click)="deleteGround(ground.guideNumber)">Eliminar</button> | <button>editar</button><td>
-
-
-
-      </tr>
-    </tbody>
-  </table>
-
-</div>
-<div class="shipping-maritime" *ngIf="isShippingMaritime">
-  <h3>Envios maritimos</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Numero de placa</th>
-        <th scope="col">Precio envio</th>
-        <th scope="col">Clinte</th>
-        <th scope="col">Cantidad envidad</th>
-        <th scope="col">Descuento</th>
-        <th scope="col">Precio total</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Bodega de entrega</th>
-        <th scope="col">Fecha de entrega</th>
-        <th scope="col">Numero Guia</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let maritimes of ListMaritimeShipping">
-        <th scope="row">{{maritimes.fleetNumber}}</th>
-        <td>{{maritimes.price}}</td>
-        <td></td>
-        <td>{{maritimes.quantityProduct}}</td>
-        <td>{{maritimes.discount}}</td>
-        <td>{{maritimes.priceTotal}}</td>
-        <td>{{maritimes.typeProduct}}</td>
-        <td>{{maritimes.portDelivery}}</td>
-        <td>{{maritimes.dateDelivery}}</td>
-        <td>{{maritimes.guideNumber}}</td>
-        <td><button (click)="deleteMaritime(maritimes.guideNumber)">Eliminar</button> | <button>editar</button><td>
-      </tr>
-    </tbody>
-  </table>
-
-</div>
+<app-shipping-form *ngIf="isUpdateShipping"></app-shipping-form>

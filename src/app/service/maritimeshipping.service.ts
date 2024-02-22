@@ -27,6 +27,12 @@ delete(guideNumber: string):Observable<any>{
   )
 }
 
+update(data:shippingMaritime):Observable<shippingMaritime>{
+  return this.httP.post<shippingMaritime>(this.serviceUtul.urlApi + 'maritime-shipping/save', data, {responseType: 'text' as 'json'}).pipe(
+    catchError(this.serviceUtul.HandleError)
+  )
+}
+
 
 
 }
